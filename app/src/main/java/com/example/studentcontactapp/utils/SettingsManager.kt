@@ -29,8 +29,4 @@ class SettingsManager(context: Context) {
     fun isNotification(): Boolean {
         return prefs.getBoolean("notif", true)
     }
-
-    fun logout() {
-        prefs.edit().clear().apply()
-    }
 }

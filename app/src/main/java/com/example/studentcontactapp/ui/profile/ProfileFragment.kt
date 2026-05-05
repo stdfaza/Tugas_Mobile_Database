@@ -9,12 +9,13 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import com.example.studentcontactapp.R
 import com.example.studentcontactapp.ui.login.LoginActivity
+import com.example.studentcontactapp.utils.PrefManager
 import com.example.studentcontactapp.utils.SettingsManager
 
 class ProfileFragment : Fragment() {
 
     private lateinit var settings: SettingsManager
-
+    private lateinit var pref: PrefManager
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         return inflater.inflate(R.layout.fragment_profile, container, false)
@@ -23,18 +24,19 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         settings = SettingsManager(requireContext())
+        pref = PrefManager(requireContext())
 
         val switchDark = view.findViewById<Switch>(R.id.switchDark)
         val switchFont = view.findViewById<Switch>(R.id.switchFont)
         val switchNotif = view.findViewById<Switch>(R.id.switchNotif)
         val btnLogout = view.findViewById<Button>(R.id.btnLogout)
 
-        // SET STATE AWAL
+        // INIT STATE
         switchDark.isChecked = settings.isDarkMode()
         switchFont.isChecked = settings.isFontSize()
         switchNotif.isChecked = settings.isNotification()
 
-        // 🌙 DARK MODE
+        // 🌙 DARK MODE (TIDAK PINDAH TAB LAGI)
         switchDark.setOnCheckedChangeListener { _, isChecked ->
             settings.setDarkMode(isChecked)
 
@@ -45,7 +47,7 @@ class ProfileFragment : Fragment() {
             }
         }
 
-        // 🔠 FONT SIZE (contoh sederhana)
+        // 🔠 FONT
         switchFont.setOnCheckedChangeListener { _, isChecked ->
             settings.setFontSize(isChecked)
         }
@@ -55,12 +57,13 @@ class ProfileFragment : Fragment() {
             settings.setNotification(isChecked)
         }
 
-        // 🚪 LOGOUT
+        // 🚪 LOGOUT (FIX)
         btnLogout.setOnClickListener {
-            settings.logout()
+            pref.logout()
 
-            startActivity(Intent(requireContext(), LoginActivity::class.java))
-            requireActivity().finish()
+            val intent = Intent(requireContext(), LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
         }
     }
 }
