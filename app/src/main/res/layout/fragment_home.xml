@@ -1,16 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
+    android:background="#EDEDED"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/etSearch"
-        android:hint="Search"
+    <!-- HEADER -->
+    <TextView
+        android:text="Student App"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:background="#5C6BC0"
+        android:padding="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
+    <!-- WELCOME -->
+    <TextView
+        android:id="@+id/tvWelcome"
+        android:text="Welcome, Ahmad!"
+        android:textSize="14sp"
+        android:padding="16dp"
+        android:textColor="#555"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        android:id="@+id/etSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:hint="Cari student..."
+        android:inputType="text"
+        android:padding="12dp" />
+
+    <!-- LIST -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
+        android:padding="8dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
 </LinearLayout>
